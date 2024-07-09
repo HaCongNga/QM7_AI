@@ -56,3 +56,32 @@ print(numpy.max(dataset['P']))
 Ptrain = dataset['P'][list(range(0,split))+list(range(split+1,5))].flatten()
 print(numpy.max(Ptrain))
 print(Ptrain.shape)
+print(type(dataset))
+print(dataset.keys())
+
+X = dataset['X']
+x_0 = X[0]
+print(x_0)
+x_0_r = x_0.reshape(x_0.shape[0], -1)
+print(x_0_r)
+
+import numpy as np
+x = np.array([[3,3.1, 3.2], [3.9, 4, 4.1], [5, 6, 8]])
+d = np.array([1,2,3,4,5])
+print(x[[1,1], [2,2]])
+print(d.shape)
+d = d.reshape((5,))
+print(d.shape)
+d = d.reshape(1, -1)
+print(d)
+pre_res = x.nonzero()
+res = np.transpose(x.nonzero())
+print(res)
+print(res.shape)
+print(x[pre_res[0], pre_res[1]])
+
+diagonal = np.array([1,23,25,29, 0, 30, 32, 0])
+print(diagonal.nonzero())
+diag = diagonal[diagonal.nonzero()]
+print(diag)
+print(diag.shape)

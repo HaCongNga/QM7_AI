@@ -11,7 +11,11 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel
 
+from sklearn.kernel_ridge import KernelRidge
+
 import argparse
+
+from scipy import stats 
 
 def load_dataset() :
     dataset = scipy.io.loadmat('qm7.mat')
@@ -42,6 +46,8 @@ def get_features(dataset, indices) :
     X = dataset['X']
     X = X.reshape(X.shape[0], -1)
     X = X[indices]
+    #X = stats.zscore(X)
+    X = np.sort(X)
     print("Shape of feature X : ", X.shape)
 
     # Get atomic charge Z :
@@ -76,6 +82,8 @@ def get_model(model_name) :
     elif model_name == "Gauss" :
         kernel = DotProduct() + WhiteKernel()
         return GaussianProcessRegressor(kernel=kernel, alpha=10, random_state=0)
+    elif model_name == "KernelRidge" :
+        return KernelRidge(kernel="rbf", gamma=0.5)
     else :
         raise ValueError("Unsupported model !")
 
